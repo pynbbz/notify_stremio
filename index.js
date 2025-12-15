@@ -22,8 +22,8 @@ addon.get('/manifest.json', (req, res) => {
 
 addon.get('/stream/:type/:id.json', (req, res) => {
     const stream = {
-        name: "Not Found!",
-        description: "🇮🇷 Is this a Persian Movie/Show?\n1. Go back to search results\n2. Scroll down\n3. Play from Persian sections\n\n🔴 If content isn't Persian:\nEmail us its name\nSupport@vidflix.ca",
+        name: "❌ Not Found!",
+        description: "🇮🇷 Is this a Persian Movie/Show?\n1. Go back to search results\n2. Scroll down\n3. Play from Persian sections\n\n⚠️ If content isn't Persian:\nEmail us its name\nSupport@vidflix.ca",
         externalUrl: "https://dashboard.vidflix.ca/#help",
         behaviorHints: { notWebReady: true }
     };
