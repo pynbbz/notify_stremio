@@ -1,27 +1,5 @@
 [
   {
-    "type": "movie",
-    "imdbId": "tt0111161",
-    "fullId": "tt0111161",
-    "name": "The Shawshank Redemption",
-    "year": "1994",
-    "poster": "https://images.metahub.space/poster/small/tt0111161/img",
-    "firstRequested": "2026-01-30T01:52:12.130Z",
-    "lastRequested": "2026-01-30T01:52:12.130Z",
-    "requestCount": 1
-  },
-  {
-    "type": "series",
-    "imdbId": "tt0944947",
-    "fullId": "tt0944947:1:1",
-    "name": "Game of Thrones",
-    "year": "2011–2019",
-    "poster": "https://images.metahub.space/poster/small/tt0944947/img",
-    "firstRequested": "2026-01-30T01:52:17.516Z",
-    "lastRequested": "2026-01-30T01:52:17.516Z",
-    "requestCount": 1
-  },
-  {
     "type": "series",
     "imdbId": "tt1546360",
     "fullId": "tt1546360:1:10",
