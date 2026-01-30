@@ -1,8 +1,104 @@
 import express from 'express';
 import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const addon = express();
 addon.use(cors());
+
+const REQUESTS_FILE = path.join(__dirname, 'requests.json');
+
+// Load existing requests or initialize empty array
+function loadRequests() {
+    try {
+        if (fs.existsSync(REQUESTS_FILE)) {
+            const data = fs.readFileSync(REQUESTS_FILE, 'utf8');
+            return JSON.parse(data);
+        }
+    } catch (error) {
+        console.error('Error loading requests:', error);
+    }
+    return [];
+}
+
+// Fetch metadata from Cinemeta API
+async function fetchMetadata(type, imdbId) {
+    try {
+        const url = `https://v3-cinemeta.strem.io/meta/${type}/${imdbId}.json`;
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            console.error(`Cinemeta API error: ${response.status}`);
+            return null;
+        }
+
+        const data = await response.json();
+        if (data && data.meta) {
+            return {
+                name: data.meta.name || null,
+                year: data.meta.year || data.meta.releaseInfo || null,
+                poster: data.meta.poster || null
+            };
+        }
+    } catch (error) {
+        console.error('Error fetching metadata:', error);
+    }
+    return null;
+}
+
+// Save request to file (async to fetch metadata)
+async function saveRequest(type, id) {
+    const requests = loadRequests();
+
+    // Extract just the IMDb ID (remove any :season:episode suffix)
+    const imdbId = id.split(':')[0];
+
+    // Check if this ID was already requested
+    const existingIndex = requests.findIndex(r => r.imdbId === imdbId);
+
+    if (existingIndex >= 0) {
+        // Update existing request with new timestamp and increment count
+        requests[existingIndex].lastRequested = new Date().toISOString();
+        requests[existingIndex].requestCount = (requests[existingIndex].requestCount || 1) + 1;
+
+        // If we don't have metadata yet, try to fetch it
+        if (!requests[existingIndex].name) {
+            const metadata = await fetchMetadata(type, imdbId);
+            if (metadata) {
+                requests[existingIndex].name = metadata.name;
+                requests[existingIndex].year = metadata.year;
+                requests[existingIndex].poster = metadata.poster;
+            }
+        }
+    } else {
+        // Fetch metadata for new request
+        const metadata = await fetchMetadata(type, imdbId);
+
+        // Add new request
+        requests.push({
+            type,
+            imdbId,
+            fullId: id,
+            name: metadata?.name || null,
+            year: metadata?.year || null,
+            poster: metadata?.poster || null,
+            firstRequested: new Date().toISOString(),
+            lastRequested: new Date().toISOString(),
+            requestCount: 1
+        });
+    }
+
+    try {
+        fs.writeFileSync(REQUESTS_FILE, JSON.stringify(requests, null, 2));
+        console.log(`Saved request: ${type} - ${id}${requests[existingIndex >= 0 ? existingIndex : requests.length - 1].name ? ` (${requests[existingIndex >= 0 ? existingIndex : requests.length - 1].name})` : ''}`);
+    } catch (error) {
+        console.error('Error saving request:', error);
+    }
+}
 
 const MANIFEST = {
     id: 'org.vidflix.notify',
@@ -21,6 +117,11 @@ addon.get('/manifest.json', (req, res) => {
 });
 
 addon.get('/stream/:type/:id.json', (req, res) => {
+    const { type, id } = req.params;
+
+    // Save the request for tracking
+    saveRequest(type, id);
+
     const streams = [
         {
             name: "❌ No Results?",
