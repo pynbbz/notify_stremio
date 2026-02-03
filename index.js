@@ -41,7 +41,8 @@ async function fetchMetadata(type, imdbId) {
             return {
                 name: data.meta.name || null,
                 year: data.meta.year || data.meta.releaseInfo || null,
-                poster: data.meta.poster || null
+                poster: data.meta.poster || null,
+                videos: data.meta.videos || []
             };
         }
     } catch (error) {
@@ -57,8 +58,25 @@ async function saveRequest(type, id) {
     // Extract just the IMDb ID (remove any :season:episode suffix)
     const imdbId = id.split(':')[0];
 
-    // Check if this ID was already requested
-    const existingIndex = requests.findIndex(r => r.imdbId === imdbId);
+    // Validate if episode exists (for BOTH new and existing shows)
+    if (id.includes(':')) {
+        // We need metadata to validate. 
+        // Note: We might fetch metadata twice (here and later), but for validation it's necessary.
+        // Optimization: Pass this metadata down if fetched?
+        // For simplicity, we'll fetch it here.
+        const metadata = await fetchMetadata(type, imdbId);
+
+        if (metadata && metadata.videos) {
+            const episodeExists = metadata.videos.some(video => video.id === id);
+            if (!episodeExists) {
+                console.log(`Skipping invalid episode request: ${id}`);
+                return;
+            }
+        }
+    }
+
+    // Check if this ID was already requested (using fullId to distinguish episodes)
+    const existingIndex = requests.findIndex(r => r.fullId === id);
 
     if (existingIndex >= 0) {
         // Update existing request with new timestamp and increment count
@@ -76,6 +94,9 @@ async function saveRequest(type, id) {
         }
     } else {
         // Fetch metadata for new request
+        // Optimization: if we already fetched it for validation, we could reuse it.
+        // But the previous block only runs if id includes ':'. This block runs for movies too.
+        // Let's just re-fetch or keep it simple. The overhead is acceptable for this task.
         const metadata = await fetchMetadata(type, imdbId);
 
         // Add new request
@@ -124,8 +145,8 @@ addon.get('/stream/:type/:id.json', (req, res) => {
 
     const streams = [
         {
-            name: "❌ No Results?",
-            description: "Email us its name\nsupport@namavu.com",
+            name: "❌ Not Available Yet",
+            description: "We'll add it as soon as it's available",
             externalUrl: "https://dashboard.namavu.com/#help",
             behaviorHints: { notWebReady: true }
         }
