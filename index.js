@@ -67,9 +67,15 @@ async function saveRequest(type, id) {
         const metadata = await fetchMetadata(type, imdbId);
 
         if (metadata && metadata.videos) {
-            const episodeExists = metadata.videos.some(video => video.id === id);
-            if (!episodeExists) {
+            const episode = metadata.videos.find(video => video.id === id);
+            if (!episode) {
                 console.log(`Skipping invalid episode request: ${id}`);
+                return;
+            }
+
+            // Skip episodes that haven't aired yet
+            if (episode.released && new Date(episode.released) > new Date()) {
+                console.log(`Skipping unaired episode request: ${id} (airs ${episode.released})`);
                 return;
             }
         }
