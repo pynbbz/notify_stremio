@@ -151,9 +151,15 @@ addon.get('/stream/:type/:id.json', (req, res) => {
 
     const streams = [
         {
-            name: "❌ Not Available Yet",
+            name: "❌ Not Available",
             description: "We'll add it as soon as it's available",
             externalUrl: "https://dashboard.namavu.com/#help",
+            behaviorHints: { notWebReady: true }
+        },
+        {
+            name: "محتوای فارسی؟",
+            description: "برای پخش فیلم و سریال های فارسی\nاز قسمت ویژه فارسی استفاده کنید",
+            externalUrl: "stremio://",
             behaviorHints: { notWebReady: true }
         }
     ];

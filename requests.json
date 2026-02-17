@@ -9,5 +9,104 @@
     "firstRequested": "2026-02-03T02:28:46.890Z",
     "lastRequested": "2026-02-03T02:28:46.890Z",
     "requestCount": 1
+  },
+  {
+    "type": "series",
+    "imdbId": "tt32085440",
+    "fullId": "tt32085440:1:8",
+    "name": "The Savage",
+    "year": "2025–",
+    "poster": "https://live.metahub.space/poster/small/tt32085440/img",
+    "firstRequested": "2026-02-17T15:13:56.168Z",
+    "lastRequested": "2026-02-17T15:13:56.168Z",
+    "requestCount": 1
+  },
+  {
+    "type": "series",
+    "imdbId": "tt32085440",
+    "fullId": "tt32085440:2:1",
+    "name": "The Savage",
+    "year": "2025–",
+    "poster": "https://live.metahub.space/poster/small/tt32085440/img",
+    "firstRequested": "2026-02-17T15:14:14.203Z",
+    "lastRequested": "2026-02-17T15:14:14.203Z",
+    "requestCount": 1
+  },
+  {
+    "type": "series",
+    "imdbId": "tt32085440",
+    "fullId": "tt32085440:2:9",
+    "name": "The Savage",
+    "year": "2025–",
+    "poster": "https://live.metahub.space/poster/small/tt32085440/img",
+    "firstRequested": "2026-02-17T15:14:25.113Z",
+    "lastRequested": "2026-02-17T15:14:25.113Z",
+    "requestCount": 1
+  },
+  {
+    "type": "series",
+    "imdbId": "tt31189898",
+    "fullId": "tt31189898:1:13",
+    "name": "Drunkard Morning",
+    "year": "2025–",
+    "poster": "https://live.metahub.space/poster/small/tt31189898/img",
+    "firstRequested": "2026-02-17T15:17:40.044Z",
+    "lastRequested": "2026-02-17T15:17:40.044Z",
+    "requestCount": 1
+  },
+  {
+    "type": "series",
+    "imdbId": "tt39227599",
+    "fullId": "tt39227599:1:1",
+    "name": "Word by word",
+    "year": "2025–",
+    "poster": "https://live.metahub.space/poster/small/tt39227599/img",
+    "firstRequested": "2026-02-17T16:03:01.085Z",
+    "lastRequested": "2026-02-17T16:22:32.967Z",
+    "requestCount": 2
+  },
+  {
+    "type": "series",
+    "imdbId": "tt39227599",
+    "fullId": "tt39227599:1:2",
+    "name": "Word by word",
+    "year": "2025–",
+    "poster": "https://live.metahub.space/poster/small/tt39227599/img",
+    "firstRequested": "2026-02-17T16:03:19.079Z",
+    "lastRequested": "2026-02-17T16:22:55.563Z",
+    "requestCount": 3
+  },
+  {
+    "type": "series",
+    "imdbId": "tt2658222",
+    "fullId": "tt2658222:1:1",
+    "name": "The Man with a Thousand Faces",
+    "year": "2008–2008",
+    "poster": "https://live.metahub.space/poster/small/tt2658222/img",
+    "firstRequested": "2026-02-17T16:12:13.259Z",
+    "lastRequested": "2026-02-17T16:21:09.829Z",
+    "requestCount": 2
+  },
+  {
+    "type": "series",
+    "imdbId": "tt2658222",
+    "fullId": "tt2658222:1:2",
+    "name": "The Man with a Thousand Faces",
+    "year": "2008–2008",
+    "poster": "https://live.metahub.space/poster/small/tt2658222/img",
+    "firstRequested": "2026-02-17T16:12:29.786Z",
+    "lastRequested": "2026-02-17T16:21:24.396Z",
+    "requestCount": 2
+  },
+  {
+    "type": "series",
+    "imdbId": "tt39227599",
+    "fullId": "tt39227599:1:3",
+    "name": "Word by word",
+    "year": "2025–",
+    "poster": "https://live.metahub.space/poster/small/tt39227599/img",
+    "firstRequested": "2026-02-17T16:23:10.943Z",
+    "lastRequested": "2026-02-17T16:23:10.943Z",
+    "requestCount": 1
   }
 ]
