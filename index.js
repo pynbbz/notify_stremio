@@ -152,8 +152,8 @@ addon.get('/stream/:type/:id.json', (req, res) => {
     const streams = [
         {
             name: "❌ Not Available",
-            description: "We'll add it as soon as it's available",
-            externalUrl: "https://dashboard.namavu.com/#help",
+            description: "We'll add it as soon as available",
+            externalUrl: "https://dashboard.stremio.ca/#help",
             behaviorHints: { notWebReady: true }
         },
         {
